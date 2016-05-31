@@ -1,0 +1,35 @@
+<h2 class="sub-header">Manage Bus Routes</h2>
+<div ng-if="vm.busRoutes.length === 0" style="text-align: center; padding-top: 4em;">
+    <h3>No bus routes added yet, add a bus route over <a style="text-decoration: underline" ui-sref="admin-dashboard.add-bus-route">here</a>.</h3>
+</div>
+
+<div ng-if="vm.busRoutes.length > 0">
+    <table ng-table="vm.busRoutesTableParams" class="table table-striped" show-filter="true">
+        <tr ng-repeat="busRoute in $data">
+            <td title="'Route Name'" filter="{ routeName: 'text' }" sortable="'routeName'">
+                {{ busRoute.routeName }}
+            </td>
+            <td title="'Departure Location'" filter="{ departureLocation: 'text' }" sortable="'departureLocation'">
+                {{ busRoute.departureLocation }}
+            </td>
+            <td title="'Destination'" filter="{ destination: 'text' }" sortable="'destination'">
+                {{ busRoute.destination }}
+            </td>
+            <td>
+                <button class="btn btn-success" ng-click="vm.editBusRoute(busRoute)">Edit</button>
+                <button class="btn btn-danger" ng-click="vm.confirmDelete(busRoute)">Delete</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/ng-template" id="confirmBusRoutesDeleteDialog">
+    <div class="ngdialog-message">
+        <h3>Delete Bus Route?</h3>
+        <p>Please confirm if you would like to remove {{ busRoute.routeName }} from the bus route list.</p>
+    </div>
+    <div class="ngdialog-buttons">
+        <button class="ngdialog-button ngdialog-button-primary" ng-click="vm.deleteBusRoute(busRoute.id)">Yes</button>
+        <button class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog()">No</button>
+    </div>
+</script>

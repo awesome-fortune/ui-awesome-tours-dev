@@ -1,0 +1,46 @@
+<h2 class="sub-header">Manage Trips</h2>
+<div ng-if="vm.buses.length === 0" style="text-align: center; padding-top: 4em;">
+    <h3>You have to add at least one bus before proceeding, add a bus over <a style="text-decoration: underline" ui-sref="admin-dashboard.add-bus">here</a>.</h3>
+</div>
+<div ng-if="vm.busRoutes.length === 0" style="text-align: center; padding-top: 4em;">
+    <h3>You have to add at least one bus route before proceeding, add a bus route over <a style="text-decoration: underline" ui-sref="admin-dashboard.add-route">here</a>.</h3>
+</div>
+<div ng-if="vm.buses.length > 0 && vm.busRoutes.length > 0 && vm.trips.length === 0" style="text-align: center; padding-top: 4em;">
+    <h3>No trips added yet, add a trip over <a style="text-decoration: underline" ui-sref="admin-dashboard.add-trip">here</a>.</h3>
+</div>
+
+<div ng-if="vm.trips.length > 0">
+    <table ng-table="vm.tripsTableParams" class="table table-striped" show-filter="true">
+        <tr ng-repeat="trip in $data">
+            <td title="'Trip Name'" filter="{ tripName: 'text' }" sortable="'tripName'">
+                {{ trip.tripName }}
+            </td>
+            <td title="'Seats Available'" filter="{ seatsAvailable: 'number' }" sortable="'seatsAvailable'">
+                {{ trip.seatsAvailable }}
+            </td>
+            <td title="'Fare'" filter="{ fare: 'text' }" sortable="'fare'">
+                {{ trip.fare | currency:'R' }}
+            </td>
+            <td title="'Bus Registration'">
+                {{ vm.getBusRegistration(trip.bus) }}
+            </td>
+            <td title="'Trip Date'" filter="{ tripDate: 'date' }" sortable="'tripDate'">
+                {{ trip.tripDate.date | limitTo:10 }}
+            </td>
+            <td>
+                <button class="btn btn-danger" ng-click="vm.confirmDelete(trip)">Delete</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/ng-template" id="confirmTripDeleteDialog">
+    <div class="ngdialog-message">
+        <h3>Delete Trip?</h3>
+        <p>Please confirm if you would like to remove {{ trip.tripName}} from the trip list.</p>
+    </div>
+    <div class="ngdialog-buttons">
+        <button class="ngdialog-button ngdialog-button-primary" ng-click="vm.deleteTrip(trip.id)">Yes</button>
+        <button class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog()">No</button>
+    </div>
+</script>

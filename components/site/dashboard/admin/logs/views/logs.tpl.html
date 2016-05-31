@@ -1,0 +1,17 @@
+<h2 class="sub-header">Bus Record Logs</h2>
+<table ng-table="vm.busTableParams" class="table table-striped" show-filter="true">
+    <tr ng-repeat="bus in $data">
+        <td title="'Action'" filter="{ action: 'text' }">
+            {{ bus.action }}
+        </td>
+        <td title="'User'" filter="{ user: 'text' }">
+            {{ bus.user }}
+        </td>
+        <td title="'IP Address'" filter="{ ipAddress: 'text' }">
+            {{ bus.ipAddress }}
+        </td>
+        <td title="'Date'" filter="{ timestamp: 'date' }">
+            {{ bus.timestamp.date | limitTo:18 }}
+        </td>
+    </tr>
+</table>

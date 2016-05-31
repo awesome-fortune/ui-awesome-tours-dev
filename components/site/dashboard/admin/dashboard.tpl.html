@@ -1,0 +1,188 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <a class="navbar-brand" href="#">Awesome Tours</a>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a ui-sref="dashboard.home" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi mdi-speedometer"></i> Dashboard <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a ui-sref="admin-dashboard"><i class="mdi mdi-home"></i> Admin Home</a></li>
+                        <li><a ui-sref="admin-dashboard.admin-logs"><i class="mdi mdi-chart-areaspline"></i> Admin Logs</a></li>
+                        <li class="dropdown-header">Manage Buses</li>
+                        <li><a ui-sref="admin-dashboard.add-bus"><i class="mdi mdi-plus-circle"></i> Add a new bus</a></li>
+                        <li><a ui-sref="admin-dashboard.view-buses"><i class="mdi mdi-magnify"></i> View buses</a></li>
+                        <li><a ui-sref="admin-dashboard.add-bus-type"><i class="mdi mdi-plus-circle"></i> Add a new bus type</a></li>
+                        <li><a ui-sref="admin-dashboard.view-bus-types"><i class="mdi mdi-magnify"></i> View bus types</a></li>
+                        <li class="dropdown-header">Manage Bus Routes</li>
+                        <li><a ui-sref="admin-dashboard.add-route"><i class="mdi mdi-plus-circle"></i> Add a new bus route</a></li>
+                        <li><a ui-sref="admin-dashboard.view-routes"><i class="mdi mdi-magnify"></i> View bus routes</a></li>
+                        <li class="dropdown-header">Manage Trips</li>
+                        <li><a ui-sref="admin-dashboard.add-trip"><i class="mdi mdi-plus-circle"></i> Add a new bus trip</a></li>
+                        <li><a ui-sref="admin-dashboard.view-trips"><i class="mdi mdi-magnify"></i> View trips</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="mdi mdi-account"></i> Profile</a></li>
+                <li><a style="cursor: pointer" ng-click="vm.logout()"><i class="mdi mdi-exit-to-app"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="dashboard-sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a ui-sref="admin-dashboard">Logged in as Admin<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><i><p>Menu</p></i></li>
+                <li><h4 style="text-decoration: underline">Manage Buses</h4></li>
+                <li><a ui-sref="admin-dashboard.add-bus">Add a new bus</a></li>
+                <li><a ui-sref="admin-dashboard.view-buses">View Buses</a></li>
+                <li><a ui-sref="admin-dashboard.add-bus-type">Add a bus type</a></li>
+                <li><a ui-sref="admin-dashboard.view-bus-types">View bus types</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><h4 style="text-decoration: underline">Manage Bus Routes</h4></li>
+                <li><a ui-sref="admin-dashboard.add-route">Add a new bus route</a></li>
+                <li><a ui-sref="admin-dashboard.view-routes">View bus routes</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><h4 style="text-decoration: underline">Manage Trips</h4></li>
+                <li><a ui-sref="admin-dashboard.add-trip">Add a new trip</a></li>
+                <li><a ui-sref="admin-dashboard.view-trips">View trips</a></li>
+            </ul>
+        </div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header" ng-show="vm.showAdminStats">Admin Dashboard</h1>
+
+            <div class="row placeholders" ng-show="vm.showAdminStats">
+
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <div style="width: 200px; height: 200px;
+                background-color: gray; color: white; border-radius: 100%;
+                text-align: center; padding: 30%;">
+                        <h1 style="font-size: 2em;">3</h1>
+                    </div>
+                    <h4>Users Logged in</h4>
+                </div>
+
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <div style="width: 200px; height: 200px;
+                background-color: gray; color: white; border-radius: 100%;
+                text-align: center; padding: 30%;">
+                        <loading></loading>
+                        <h1 style="font-size: 2em;">{{ vm.totalBuses }}</h1>
+                    </div>
+                    <h4>Total Buses</h4>
+                </div>
+
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <div style="width: 200px; height: 200px;
+                background-color: gray; color: white; border-radius: 100%;
+                text-align: center; padding: 30%;">
+                        <loading></loading>
+                        <h1 style="font-size: 2em;">{{ vm.totalTrips }}</h1>
+                    </div>
+                    <h4>Total Trips</h4>
+                </div>
+
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <div style="width: 200px; height: 200px;
+                background-color: gray; color: white; border-radius: 100%;
+                text-align: center; padding: 30%;">
+                        <loading></loading>
+                        <h1 style="font-size: 2em;">{{ vm.totalBusRoutes }}</h1>
+                    </div>
+                    <h4>Total Routes</h4>
+                </div>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showBusAddedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully added a new bus to the list!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showBusDeletedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully removed a bus from the list!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showBusTypeAddedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully added a new bus type to the list!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showTripAddedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully added a new trip to the list!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showBusTypeDeletedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully removed a bus type from the list!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showBusRouteAddedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully added a new bus route to the list!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showBusRouteDeletedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully removed a bus route from the list!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showTripDeletedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully removed a trip from the list!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showBusEditedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully edited a bus!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showBusTypeEditedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully edited a bus type!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showBusRouteEditedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully edited a bus route!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showTripEditedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully edited a trip!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-warning" ng-show="vm.showBusRegistrationExistsNotification === true">
+                <i class="mdi mdi-alert mdi-36px"></i>
+                <p>Sorry, a bus registration with that record already exists, please try again with a different bus registration!</p>
+            </div>
+
+            <div class="fx-bounce-normal well-lg alert-warning" ng-show="vm.showBusTypeExistsNotification === true">
+                <i class="mdi mdi-alert mdi-36px"></i>
+                <p>Sorry, a bus type with that record already exists, please try again with a different bus type!</p>
+            </div>
+
+            <ui-view class="anim-in-out anim-fade" data-anim-speed="500"></ui-view>
+
+        </div>
+
+    </div>
+</div>

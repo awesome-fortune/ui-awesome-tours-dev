@@ -1,0 +1,35 @@
+<h2 class="sub-header">Manage Buses</h2>
+
+<div ng-if="vm.buses.length === 0" style="text-align: center; padding-top: 4em;">
+    <h3>No buses added yet, add a bus over <a style="text-decoration: underline"
+                                              ui-sref="admin-dashboard.add-bus">here</a>.</h3>
+</div>
+<div ng-if="vm.buses.length > 0">
+    <table ng-table="vm.busTableParams" class="table table-striped" show-filter="true">
+        <tr ng-repeat="bus in $data">
+            <td title="'Bus Registration'" filter="{ busRegistration: 'text' }" sortable="'busRegistration'">
+                {{ bus.busRegistration | uppercase }}
+            </td>
+            <td title="'Bus Type'" filter="{ busType: 'text' }" sortable="'busType'">
+                {{ bus.busType }}
+            </td>
+            <td title="'Seats'" filter="{ seats: 'number' }" sortable="'seats'">
+                {{ bus.seats }}
+            </td>
+            <td>
+                <button class="btn btn-success" ng-click="vm.editBus(bus)">Edit</button>
+                <button class="btn btn-danger" ng-click="vm.confirmDelete(bus)">Delete</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/ng-template" id="confirmBusDeleteDialog">
+    <div class="ngdialog-message">
+        <h3>Delete Bus?</h3>
+        <p>Please confirm if you would like to remove {{ bus.busRegistration }} from the bus list.</p>
+    </div>
+    <div class="ngdialog-buttons">
+        <button class="ngdialog-button ngdialog-button-primary" ng-click="vm.deleteBus(bus.id)">Yes</button>
+        <button class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog()">No</button>
+    </div>
+</script>

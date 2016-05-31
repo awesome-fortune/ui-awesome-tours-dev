@@ -1,0 +1,40 @@
+<div class="cover-container">
+
+    <div class="masthead clearfix">
+        <div class="inner">
+            <h3 class="masthead-brand">Awesome Tours</h3>
+            <nav>
+                <ul class="nav masthead-nav">
+                    <li><a ui-sref="home">Home</a></li>
+                    <li class="active"><a ui-sref="login">Log In</a></li>
+                    <li><a ui-sref="signup">Sign Up</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</div>
+
+<br><br><br><br><br><br>
+
+<div class="container">
+
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Log into your account</h2>
+        <flash-message
+                duration="5000"
+                show-close="true"
+                on-dismiss="myCallback(flash)"
+        ></flash-message>
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input ng-model="user.username" type="username" id="inputEmail" class="form-control" placeholder="Username" autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input ng-model="user.password" type="password" id="inputPassword" class="form-control" placeholder="Password">
+        <button class="btn btn-lg btn-primary btn-block" ng-click="vm.login(user)">Sign in</button>
+
+        <p style="margin-top: 1em;">Don't have an account? <a style="text-decoration: underline" ui-sref="signup">create</a> a new account.</p>
+    </form>
+
+
+
+</div> <!-- /container -->

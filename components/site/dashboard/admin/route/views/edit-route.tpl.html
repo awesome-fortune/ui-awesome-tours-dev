@@ -1,0 +1,15 @@
+<h2 class="sub-header">Manage Bus Routes</h2>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h4>Edit a bus route</h4>
+        <input type="text" class="form-control" ng-model="vm.busRoute.routeName" placeholder="Route Name, e.g Pretoria to Johannesburg">
+        <br>
+        <input type="text" class="form-control" ng-model="vm.busRoute.departureLocation" placeholder="Departure Location">
+        <br>
+        <input type="text" class="form-control" ng-model="vm.busRoute.destination" placeholder="Destination">
+        <br>
+        <button ng-click="vm.saveEdit(vm.busRoute)" class="btn btn-primary btn-lg">Proceed</button>
+    </div>
+    <div class="col-md-2"></div>
+</div>

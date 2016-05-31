@@ -1,0 +1,27 @@
+<h2 class="sub-header">Manage Buses</h2>
+<div ng-if="vm.busTypes.length === 0" style="text-align: center; padding-top: 4em;">
+    <h3>No bus types added yet, add a bus type over <a style="text-decoration: underline" ui-sref="admin-dashboard.add-bus-type">here</a>.</h3>
+</div>
+<div ng-if="vm.busTypes.length > 0">
+<table ng-table="vm.busTypesTableParams" class="table table-striped" show-filter="true">
+    <tr ng-repeat="busType in $data">
+        <td title="'Bus Type'" filter="{ type: 'text' }" sortable="'type'">
+            {{ busType.type }}
+        </td>
+        <td>
+            <button class="btn btn-success" ng-click="vm.editBusType(busType)">Edit</button>
+            <button class="btn btn-danger" ng-click="vm.confirmDelete(busType)">Delete</button>
+        </td>
+    </tr>
+</table>
+</div>
+<script type="text/ng-template" id="confirmBusTypeDeleteDialog">
+    <div class="ngdialog-message">
+        <h3>Delete Bus Type?</h3>
+        <p>Please confirm if you would like to remove {{ busType.type }} from the bus-types list.</p>
+    </div>
+    <div class="ngdialog-buttons">
+        <button class="ngdialog-button ngdialog-button-primary" ng-click="vm.deleteBusType(busType.id)">Yes</button>
+        <button class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog()">No</button>
+    </div>
+</script>

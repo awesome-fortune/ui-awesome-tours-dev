@@ -1,0 +1,14 @@
+<h2 class="sub-header">Manage Buses</h2>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h4>Add a new bus type</h4>
+        <input type="text" ng-model="busType.type" placeholder="Name, e.g Mini Bus" class="form-control">
+        <br>
+        <textarea class="form-control" ng-model="busType.description" placeholder="Description, small vehicle that has 13 seats." cols="30" rows="5"></textarea>
+        <br>
+        <button ng-click="vm.addBusType(busType)" class="btn btn-primary btn-lg">Proceed</button>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+

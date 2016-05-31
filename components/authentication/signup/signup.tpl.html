@@ -1,0 +1,63 @@
+<div class="cover-container">
+
+    <div class="masthead clearfix">
+        <div class="inner">
+            <h3 class="masthead-brand">Awesome Tours</h3>
+            <nav>
+                <ul class="nav masthead-nav">
+                    <li><a ui-sref="home">Home</a></li>
+                    <li><a ui-sref="login">Log In</a></li>
+                    <li class="active"><a ui-sref="signup">Sign Up</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <div class="row">
+        <h2 class="form-signin-heading">Sign up for an account</h2>
+
+        <div class="col-md-2"></div>
+
+        <div class="col-md-8">
+            <br><br>
+            <div class="form-signin">
+                <flash-message
+                        duration="5000"
+                        show-close="true"
+                        on-dismiss="myCallback(flash)"
+                ></flash-message>
+                <input type="email" ng-model="user.email" class="form-control" placeholder="Email address" autofocus>
+                <br>
+                <input type="text" ng-model="user.username" class="form-control" placeholder="Username">
+                <br>
+                <input type="text" ng-model="user.firstName" class="form-control" placeholder="First Name">
+                <br>
+                <input type="text" ng-model="user.lastName" class="form-control" placeholder="Last Name">
+
+                <div style="margin: 1.3em">
+                    <select ng-model="user.gender" class="form-control">
+                        <option selected disabled value="">Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+
+                <input type="password" ng-model="user.password" class="form-control" placeholder="Password">
+                <br>
+                <button class="btn btn-lg btn-primary btn-block" ng-click="vm.signUp(user)">Proceed</button>
+            </div>
+        </div>
+
+        <div class="col-md-2"></div>
+    </div>
+
+    <p style="margin-top: 1em;">Already have an account? <a style="text-decoration: underline" ui-sref="login">login</a> to your account.</p>
+</div> <!-- /container -->
+
+<div>
+    <div class="inner">
+        <p>Awesome Tours by <a href="http://awesome-fortune.co.za">Fortune Maseko</a>.</p>
+    </div>
+</div>

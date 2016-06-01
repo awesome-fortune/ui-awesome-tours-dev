@@ -48,7 +48,13 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('dashboard', {
             url: '/home',
-            templateUrl: 'components/site/dashboard/home/views/dashboard.tpl.html'
+            templateUrl: 'components/site/dashboard/user/dashboard.tpl.html',
+            controller: 'UserDashboardController as vm'
+        })
+        .state('dashboard.user-profile', {
+            url: '/user-profile',
+            templateUrl: 'components/site/dashboard/user/profile/views/user-profile.tpl.html',
+            controller: 'UserProfileController as vm'
         })
 
         // bus admin
@@ -56,6 +62,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/admin',
             templateUrl: 'components/site/dashboard/admin/dashboard.tpl.html',
             controller: 'AdminDashboardController as vm'
+        })
+        .state('admin-dashboard.admin-profile', {
+            url: '/profile',
+            templateUrl: 'components/site/dashboard/admin/profile/views/profile.tpl.html',
+            controller: 'AdminProfileController as vm'
         })
         .state('admin-dashboard.admin-logs', {
             url: '/logs',

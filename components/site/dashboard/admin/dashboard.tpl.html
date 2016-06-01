@@ -10,7 +10,7 @@
             </button>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <a class="navbar-brand" href="#">Awesome Tours</a>
+            <a class="navbar-brand" ui-sref="dashboard">Awesome Tours</a>
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -31,7 +31,7 @@
                         <li><a ui-sref="admin-dashboard.view-trips"><i class="mdi mdi-magnify"></i> View trips</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="mdi mdi-account"></i> Profile</a></li>
+                <li><a ui-sref="admin-dashboard.admin-profile"><i class="mdi mdi-account"></i> Profile</a></li>
                 <li><a style="cursor: pointer" ng-click="vm.logout()"><i class="mdi mdi-exit-to-app"></i> Logout</a></li>
             </ul>
         </div>
@@ -42,7 +42,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" id="dashboard-sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a ui-sref="admin-dashboard">Logged in as Admin<span class="sr-only">(current)</span></a>
+                <li class="active"><a ui-sref="dashboard">Logged in as {{ vm.username }}<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="nav nav-sidebar">

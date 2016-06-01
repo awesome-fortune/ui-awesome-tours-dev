@@ -8,13 +8,8 @@ app.controller("AdminLogsController", function ($scope, NgTableParams, CONFIG, $
     vm.tripTableParams;
     vm.busRouteTableParams;
     $scope.$emit('hideAdminStats', true);
-
-    getBusTableLogs();
-    getUserTableLogs();
-    getTripTableLogs();
-    getBusRouteTableLogs();
-
-    function getBusRouteTableLogs() {
+    
+    (function getBusRouteTableLogs() {
         var user = {
             username: $sessionStorage.username
         };
@@ -30,9 +25,9 @@ app.controller("AdminLogsController", function ($scope, NgTableParams, CONFIG, $
             .error(function (error) {
                 console.log(error);
             });
-    }
+    })();
 
-    function getTripTableLogs() {
+    (function getTripTableLogs() {
         var user = {
             username: $sessionStorage.username
         };
@@ -48,9 +43,9 @@ app.controller("AdminLogsController", function ($scope, NgTableParams, CONFIG, $
             .error(function (error) {
                 console.log(error);
             });
-    }
+    })();
 
-    function getUserTableLogs() {
+    (function getUserTableLogs() {
         var user = {
             username: $sessionStorage.username
         };
@@ -66,9 +61,9 @@ app.controller("AdminLogsController", function ($scope, NgTableParams, CONFIG, $
             .error(function (error) {
                 console.log(error);
             });
-    }
+    })();
     
-    function getBusTableLogs() {
+    (function getBusTableLogs() {
         var user = {
             username: $sessionStorage.username
         };
@@ -84,6 +79,6 @@ app.controller("AdminLogsController", function ($scope, NgTableParams, CONFIG, $
             .error(function (error) {
                 console.log(error);
             });
-    }
+    })();
 
 });

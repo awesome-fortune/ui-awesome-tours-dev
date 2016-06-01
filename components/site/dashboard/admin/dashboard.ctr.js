@@ -2,9 +2,9 @@
  * Created by fortune on 2016/04/30.
  */
 // TODO: Remove improv admin firewall
-app.controller("AdminDashboardController", function ($scope, $state, BusFactory, $timeout, BusRoutesFactory, TripsFactory, $sessionStorage, $localStorage) {
+app.controller("AdminDashboardController", function ($http, CONFIG, $scope, $state, BusFactory, $timeout, BusRoutesFactory, TripsFactory, $sessionStorage, $localStorage) {
    var vm = this;
-
+    vm.username = $sessionStorage.username;
     //the best improv admin firewall ever... (0_0)
     if (typeof $sessionStorage.username === 'undefined') {
         $state.go('login');
@@ -21,9 +21,16 @@ app.controller("AdminDashboardController", function ($scope, $state, BusFactory,
 
     vm.logout = logout;
     function logout() {
-        delete $sessionStorage.username;
-        delete $sessionStorage.token;
-        $state.go('login');
+        var user = { username: $sessionStorage.username }
+        $http.post(CONFIG.api_url + '/logout', user)
+            .success(function (response) {
+                delete $sessionStorage.username;
+                delete $sessionStorage.token;
+                $state.go('home');
+            })
+            .error(function (error) {
+                console.log(error);
+            });
     }
     
     vm.totalBuses;

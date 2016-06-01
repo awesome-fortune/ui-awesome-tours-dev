@@ -8,7 +8,6 @@ app.controller("ViewTripsController", function ($scope, $state, $http, CONFIG, T
     vm.busRoutes;
     vm.tripsTableParams;
     
-    vm.editTrip = editTrip;
     vm.deleteTrip = deleteTrip;
     vm.getBusRegistration = getBusRegistration;
     vm.confirmDelete = confirmDelete;
@@ -22,10 +21,6 @@ app.controller("ViewTripsController", function ($scope, $state, $http, CONFIG, T
     });
     
     populateTripList();
-    
-    function editTrip(trip) {
-        
-    }
 
     function confirmDelete(trip) {
         $scope.trip = trip;

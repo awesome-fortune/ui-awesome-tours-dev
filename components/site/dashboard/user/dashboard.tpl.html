@@ -1,0 +1,66 @@
+<script type="text/ng-template" id="confirmTripDeleteDialog">
+    <div class="ngdialog-message">
+        <h3>Purchase</h3>
+        <p>Please confirm if you would like to purchase a ticket for {{ trip.tripName }}.</p>
+    </div>
+    <div class="ngdialog-buttons">
+        <button class="ngdialog-button ngdialog-button-primary" ng-click="vm.purchaseTicket(trip.id)">Yes</button>
+        <button class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog()">No</button>
+    </div>
+</script>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ui-sref="dashboard">Awesome Tours</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a ui-sref="dashboard"><i class="mdi mdi-home"></i> Home</a></li>
+                <li><a ui-sref="dashboard.user-profile"><i class="mdi mdi-account"></i> Profile</a></li>
+                <li><a style="cursor: pointer" ng-click="vm.logout()"><i class="mdi mdi-exit-to-app"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="dashboard-sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a ui-sref="dashboard">Logged in as {{ vm.username }}<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+        <div ng-if="vm.trips.length > 0">
+            <table ng-table="vm.tripsTableParams" class="table table-striped" show-filter="true">
+                <tr ng-repeat="trip in $data">
+                    <td title="'Trip Name'" filter="{ tripName: 'text' }" sortable="'tripName'">
+                        {{ trip.tripName }}
+                    </td>
+                    <td title="'Seats Available'" filter="{ seatsAvailable: 'number' }" sortable="'seatsAvailable'">
+                        {{ trip.seatsAvailable }}
+                    </td>
+                    <td title="'Fare'" filter="{ fare: 'text' }" sortable="'fare'">
+                        {{ trip.fare | currency:'R' }}
+                    </td>
+
+                    <td>
+                        <button class="btn btn-success" ng-click="vm.confirmPurchase(trip)">Buy Ticket</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <ui-view></ui-view>
+    </div>
+</div>

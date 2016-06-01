@@ -1,0 +1,15 @@
+<div class="jumbotron" style="background: lightgrey">
+    <div class="cover-container">
+        <h1>Hello, {{ vm.userData.firstName }}!</h1>
+        <p>This is your user profile, you can view your account history on the information listed below.</p>
+    </div>
+</div>
+
+<div class="cover-container">
+    <h5>Username: {{ vm.userData.username}}</h5>
+    <h5>Email: {{ vm.userData.email }}</h5>
+    <h5>First Name: {{ vm.userData.firstName }}</h5>
+    <h5>Last Name: {{ vm.userData.lastName}}</h5>
+    <h5>Gender: {{ vm.userData.gender }}</h5>
+    <h5>Account Creation Date: {{ vm.userData.created.date | limitTo:10 }}</h5>
+</div>

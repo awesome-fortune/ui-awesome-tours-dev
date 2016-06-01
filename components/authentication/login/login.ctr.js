@@ -10,7 +10,16 @@ app.controller("LoginController", function ($scope, $http, CONFIG, $sessionStora
             errorAlert("Admin credentials required for the restricted area!");
             $timeout(function() {
                 delete $localStorage.adminAuthRequired;
-            }, 3000);
+            }, 1200);
+        }
+    }
+
+    if (typeof $localStorage.authRequired !== 'undefined') {
+        if ($localStorage.authRequired) {
+            errorAlert("You have to login in order to view that page!");
+            $timeout(function() {
+                delete $localStorage.authRequired;
+            }, 1200);
         }
     }
 
@@ -26,6 +35,8 @@ app.controller("LoginController", function ($scope, $http, CONFIG, $sessionStora
                     $timeout(function() {
                         if (response.message.contains('awesome_admin')) {
                             $state.go('admin-dashboard');
+                        } else {
+                            $state.go('dashboard');
                         }
                     }, 3000);
                 }

@@ -24,9 +24,6 @@
             <td title="'Bus Registration'">
                 {{ vm.getBusRegistration(trip.bus) }}
             </td>
-            <td title="'Trip Date'" filter="{ tripDate: 'date' }" sortable="'tripDate'">
-                {{ trip.tripDate.date | limitTo:10 }}
-            </td>
             <td>
                 <button class="btn btn-danger" ng-click="vm.confirmDelete(trip)">Delete</button>
             </td>

@@ -40,7 +40,7 @@ app.controller("AddTripController", function ($scope, BusFactory, $http, CONFIG,
             }
         }
 
-        $http.post(CONFIG.api_url + '/trip', trip)
+        $http.post(CONFIG.api_url + '/trips', trip)
             .success(function (response) {
                 $scope.$emit('tripAdded', response);
             })

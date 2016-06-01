@@ -1,3 +1,22 @@
+<h2 class="sub-header">User Record Logs</h2>
+<table ng-table="vm.userTableParams" class="table table-striped" show-filter="true">
+    <tr ng-repeat="user in $data">
+        <td title="'Action'" filter="{ action: 'text' }">
+            {{ user.action }}
+        </td>
+        <td title="'User'" filter="{ user: 'text' }">
+            {{ user.user }}
+        </td>
+        <td title="'IP Address'" filter="{ ipAddress: 'text' }">
+            {{ user.ipAddress }}
+        </td>
+        <td title="'Date'" filter="{ timestamp: 'date' }">
+            {{ user.timestamp.date | limitTo:19 }}
+        </td>
+    </tr>
+</table>
+
+<hr>
 <h2 class="sub-header">Bus Record Logs</h2>
 <table ng-table="vm.busTableParams" class="table table-striped" show-filter="true">
     <tr ng-repeat="bus in $data">
@@ -11,7 +30,45 @@
             {{ bus.ipAddress }}
         </td>
         <td title="'Date'" filter="{ timestamp: 'date' }">
-            {{ bus.timestamp.date | limitTo:18 }}
+            {{ bus.timestamp.date | limitTo:19 }}
+        </td>
+    </tr>
+</table>
+
+<hr>
+<h2 class="sub-header">Trip Record Logs</h2>
+<table ng-table="vm.tripTableParams" class="table table-striped" show-filter="true">
+    <tr ng-repeat="trip in $data">
+        <td title="'Action'" filter="{ action: 'text' }">
+            {{ trip.action }}
+        </td>
+        <td title="'User'" filter="{ user: 'text' }">
+            {{ trip.user }}
+        </td>
+        <td title="'IP Address'" filter="{ ipAddress: 'text' }">
+            {{ trip.ipAddress }}
+        </td>
+        <td title="'Date'" filter="{ timestamp: 'date' }">
+            {{ trip.timestamp.date | limitTo:19 }}
+        </td>
+    </tr>
+</table>
+
+<hr>
+<h2 class="sub-header">Bus Route Record Logs</h2>
+<table ng-table="vm.busRouteTableParams" class="table table-striped" show-filter="true">
+    <tr ng-repeat="busRoute in $data">
+        <td title="'Action'" filter="{ action: 'text' }">
+            {{ busRoute.action }}
+        </td>
+        <td title="'User'" filter="{ user: 'text' }">
+            {{ busRoute.user }}
+        </td>
+        <td title="'IP Address'" filter="{ ipAddress: 'text' }">
+            {{ busRoute.ipAddress }}
+        </td>
+        <td title="'Date'" filter="{ timestamp: 'date' }">
+            {{ busRoute.timestamp.date | limitTo:19 }}
         </td>
     </tr>
 </table>

@@ -1,7 +1,7 @@
 # ui-awesome-tours-dev
 Online ticket booking system ui built on angular
 
-## [Demo](tours.awesome-fortune.co.za)
+## [Demo](http://tours.awesome-fortune.co.za)
 
 Kindly note that this is only the front end of the awesome-tours ticket booking system,
 you need to have the [api](https://github.com/awesome-fortune/api-awesome-tours) running in order for the app

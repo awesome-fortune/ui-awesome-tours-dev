@@ -2,8 +2,10 @@
 Online ticket booking system ui built on angular
 ---
 ## [Demo](http://tours.awesome-fortune.co.za)
-[Demo admin login](http://tours.awesome-fortune.co.za/#/admin)
 ---
+
+[Demo admin login](http://tours.awesome-fortune.co.za/#/admin)
+
 Default admin credentials 
 -->  Username: awesome_admin
 -->  Password: P@55w0rd1

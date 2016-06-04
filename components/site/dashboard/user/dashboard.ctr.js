@@ -1,16 +1,17 @@
 /**
  * Created by fortune on 2016/06/01.
  */
-app.controller("UserDashboardController", function (ngDialog, NgTableParams, $scope, $http, CONFIG, TripsFactory, $sessionStorage, $state, $localStorage) {
+app.controller("UserDashboardController", function (ngDialog, NgTableParams, $scope, $http, CONFIG, TripsFactory, $sessionStorage, $state, $localStorage, Flash) {
     var vm = this;
     vm.username = $sessionStorage.username;
     vm.trips;
     vm.confirmPurchase = confirmPurchase;
     vm.purchaseTicket = purchaseTicket;
+    vm.hideTicketsTable = false;
 
     populateTripList();
     
-    //the best improv admin firewall ever... (0_0)
+    //The best improve admin firewall ever... (0_0)
     if (typeof $sessionStorage.username === 'undefined') {
         $state.go('login');
         $localStorage.authRequired = true;
@@ -47,7 +48,7 @@ app.controller("UserDashboardController", function (ngDialog, NgTableParams, $sc
         };
         $http.put(CONFIG.api_url + '/trips/' + id, trip)
             .success(function (response) {
-                console.log(response);
+                successAlert("You have successfully purchased a ticket.");
             })
             .error(function (error) {
                 console.log(error);
@@ -65,6 +66,20 @@ app.controller("UserDashboardController", function (ngDialog, NgTableParams, $sc
                 data: trip.data
             });
         });
+    }
+
+    $scope.$on('hideTicketsTable', function (event, message) {
+        vm.hideTicketsTable = true;
+    });
+
+    function successAlert(message) {
+        var message = message;
+        var id = Flash.create('success', message);
+    }
+
+    function errorAlert(message) {
+        var message = message;
+        var id = Flash.create('warning', message);
     }
 
 });

@@ -25,21 +25,19 @@ app.controller("LoginController", function ($scope, $http, CONFIG, $sessionStora
 
     function login(user) {
         $http.post(CONFIG.api_url + '/tokens', user)
-            .success(function (response, status) {
-                if (status === 200) {
-                    $sessionStorage.token = response.token;
-                    $sessionStorage.username = user.username;
-                    
-                    successAlert(response.message);
+            .success(function (response) {
+                $sessionStorage.token = response.token;
+                $sessionStorage.username = user.username;
 
-                    $timeout(function() {
-                        if (response.message.contains('awesome_admin')) {
-                            $state.go('admin-dashboard');
-                        } else {
-                            $state.go('dashboard');
-                        }
-                    }, 3000);
-                }
+                successAlert(response.message);
+
+                $timeout(function() {
+                    if (response.message.contains('awesome_admin')) {
+                        $state.go('admin-dashboard');
+                    } else {
+                        $state.go('dashboard');
+                    }
+                }, 3000);
             })
             .error(function (error, status) {
                 switch (status) {

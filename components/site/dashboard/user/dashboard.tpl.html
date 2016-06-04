@@ -41,20 +41,26 @@
 
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-        <div ng-if="vm.trips.length > 0">
+        <flash-message
+                duration="5000"
+                show-close="true"
+                on-dismiss="myCallback(flash)"
+        ></flash-message>
+
+        <div ng-show="vm.hideTicketsTable === false;" ng-if="vm.trips.length > 0">
             <table ng-table="vm.tripsTableParams" class="table table-striped" show-filter="true">
                 <tr ng-repeat="trip in $data">
-                    <td title="'Trip Name'" filter="{ tripName: 'text' }" sortable="'tripName'">
+                    <td ng-show="trip.seatsAvailable != 0" title="'Trip Name'" filter="{ tripName: 'text' }" sortable="'tripName'">
                         {{ trip.tripName }}
                     </td>
-                    <td title="'Seats Available'" filter="{ seatsAvailable: 'number' }" sortable="'seatsAvailable'">
+                    <td ng-show="trip.seatsAvailable != 0" title="'Seats Available'" filter="{ seatsAvailable: 'number' }" sortable="'seatsAvailable'">
                         {{ trip.seatsAvailable }}
                     </td>
-                    <td title="'Fare'" filter="{ fare: 'text' }" sortable="'fare'">
+                    <td ng-show="trip.seatsAvailable != 0" title="'Fare'" filter="{ fare: 'text' }" sortable="'fare'">
                         {{ trip.fare | currency:'R' }}
                     </td>
 
-                    <td>
+                    <td ng-show="trip.seatsAvailable != 0">
                         <button class="btn btn-success" ng-click="vm.confirmPurchase(trip)">Buy Ticket</button>
                     </td>
                 </tr>

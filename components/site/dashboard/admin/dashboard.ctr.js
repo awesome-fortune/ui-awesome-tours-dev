@@ -206,8 +206,8 @@ app.controller("AdminDashboardController", function ($http, CONFIG, $scope, $sta
 
     });
 
-    $scope.$on('hideAdminStats', function (event, message) {
-        vm.showAdminStats = false;
+    $scope.$on('hideTicketsTable', function (event, message) {
+        vm.hideTicketsTable = false;
     });
     
 });

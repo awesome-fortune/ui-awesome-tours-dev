@@ -15,5 +15,5 @@ app.controller("AdminProfileController", function ($sessionStorage, $scope, $htt
             });
     })();
 
-    
+    $scope.$emit('hideAdminStats', true);
 });

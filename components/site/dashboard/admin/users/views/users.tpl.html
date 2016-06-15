@@ -1,0 +1,40 @@
+<h2 class="sub-header">User List</h2>
+
+<div>
+    <table ng-table="vm.userTableParams" class="table table-striped" show-filter="true">
+        <tr ng-repeat="user in $data">
+            <td title="'Username'" filter="{ username: 'text' }" sortable="'username'">
+                {{ user.username }}
+            </td>
+            <td title="'Email'" filter="{ email: 'text' }" sortable="'email'">
+                {{ user.email }}
+            </td>
+            <td title="'First Name'" filter="{ firstName: 'text' }" sortable="'firstName'">
+                {{ user.firstName }}
+            </td>
+            <td title="'Last Name'" filter="{ lastName: 'text' }" sortable="'lastName'">
+                {{ user.lastName }}
+            </td>
+            <td title="'Gender'" filter="{ gender: 'text' }" sortable="'gender'">
+                {{ user.gender }}
+            </td>
+            <td title="'Account Created'">
+                {{ user.created.date | limitTo:19 }}
+            </td>
+            <td>
+                <button class="btn btn-danger" ng-click="vm.confirmDelete(user)">Delete</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/ng-template" id="confirmUserDeleteDialog">
+    <div class="ngdialog-message">
+        <h3>Delete User?</h3>
+        <p>Please confirm if you would like to remove {{ user.username }} from the user list.</p>
+    </div>
+    <div class="ngdialog-buttons">
+        <button class="ngdialog-button ngdialog-button-primary" ng-click="vm.deleteUser(user.id)">Yes</button>
+        <button class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog()">No</button>
+    </div>
+</script>

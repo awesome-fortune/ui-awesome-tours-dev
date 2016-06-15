@@ -1,31 +1,33 @@
 /**
  * Created by fortune on 2016/04/24.
  */
-app.controller("AddBusTypeController", function ($scope, $http, CONFIG, $sessionStorage) {
+app.controller("AddBusTypeController", function ($scope, $http, CONFIG, $sessionStorage, Flash) {
     var vm = this;
     
     vm.addBusType = addBusType;
+    $scope.$emit('hideAdminStats', true);
     
     function addBusType(busType) {
-        busType.username = $sessionStorage.username;
-        $http.post(CONFIG.api_url + '/check/bus-type-existence', busType)
-            .success(function (response) {
-                if (response.busTypeExists) {
-                    $scope.$emit('busTypeAlreadyExists', true);
-                } else {
-                    $http.post(CONFIG.api_url + '/bus-types', busType)
-                        .success(function (response) {
-                            $scope.$emit('busTypeAdded', true);
-                        })
-                        .error(function (error) {
-                            console.error(error);
-                        });     
-                }
-            })
-            .error(function (error) {
-                console.log(error);
-            });
+        if (typeof busType === 'undefined' || 
+            typeof busType.description === 'undefined' || 
+            typeof busType.type === 'undefined') 
+        {
+            errorAlert("Please provide some valid input.");
+        } else {
+            busType.username = $sessionStorage.username;
+            $http.post(CONFIG.api_url + '/bus-types', busType)
+                .success(function (response) {
+                    $scope.$emit('busTypeAdded', true);
+                })
+                .error(function (error) {
+                    errorAlert(error.message);
+                });
+         }
     }
-
-    $scope.$emit('hideAdminStats', true);
+    
+    function errorAlert(message) {
+        var message = message;
+        var id = Flash.create('warning', message);
+    }
+    
 });

@@ -14,10 +14,11 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a ui-sref="dashboard.home" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi mdi-speedometer"></i> Dashboard <b class="caret"></b></a>
+                    <a ui-sref="dashboard.home" id="dashboard-menu-item" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi mdi-speedometer"></i> Dashboard <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a ui-sref="admin-dashboard"><i class="mdi mdi-home"></i> Admin Home</a></li>
+                        <li><a ng-click="vm.reloadAdminDashboard()" style="cursor: pointer"><i class="mdi mdi-home"></i> Admin Home</a></li>
                         <li><a ui-sref="admin-dashboard.admin-logs"><i class="mdi mdi-chart-areaspline"></i> Admin Logs</a></li>
+                        <li><a ui-sref="admin-dashboard.user-list"><i class="mdi mdi-view-list"></i> User List</a></li>
                         <li class="dropdown-header">Manage Buses</li>
                         <li><a ui-sref="admin-dashboard.add-bus"><i class="mdi mdi-plus-circle"></i> Add a new bus</a></li>
                         <li><a ui-sref="admin-dashboard.view-buses"><i class="mdi mdi-magnify"></i> View buses</a></li>
@@ -74,9 +75,9 @@
                     <div style="width: 200px; height: 200px;
                 background-color: gray; color: white; border-radius: 100%;
                 text-align: center; padding: 30%;">
-                        <h1 style="font-size: 2em;">3</h1>
+                        <h1 style="font-size: 2em;">{{ vm.totalUsers }}</h1>
                     </div>
-                    <h4>Users Logged in</h4>
+                    <h4>Total Users</h4>
                 </div>
 
                 <div class="col-xs-6 col-sm-3 placeholder">
@@ -108,6 +109,10 @@
                     </div>
                     <h4>Total Routes</h4>
                 </div>
+            </div>
+
+            <div class="row" style="text-align: center" ng-show="vm.showAdminStats">
+                <h1>Tickets Sold: {{ vm.ticketsSold }}</h1>
             </div>
 
             <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showBusAddedNotification === true">
@@ -150,6 +155,11 @@
                 <p>You have successfully removed a trip from the list!</p>
             </div>
 
+            <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showUserDeletedNotification === true">
+                <i class="mdi mdi-check-circle mdi-36px"></i>
+                <p>You have successfully removed a user from the list!</p>
+            </div>
+
             <div class="fx-bounce-normal well-lg alert-success" ng-show="vm.showBusEditedNotification === true">
                 <i class="mdi mdi-check-circle mdi-36px"></i>
                 <p>You have successfully edited a bus!</p>
@@ -170,19 +180,13 @@
                 <p>You have successfully edited a trip!</p>
             </div>
 
-            <div class="fx-bounce-normal well-lg alert-warning" ng-show="vm.showBusRegistrationExistsNotification === true">
-                <i class="mdi mdi-alert mdi-36px"></i>
-                <p>Sorry, a bus registration with that record already exists, please try again with a different bus registration!</p>
-            </div>
-
-            <div class="fx-bounce-normal well-lg alert-warning" ng-show="vm.showBusTypeExistsNotification === true">
-                <i class="mdi mdi-alert mdi-36px"></i>
-                <p>Sorry, a bus type with that record already exists, please try again with a different bus type!</p>
-            </div>
-
             <ui-view class="anim-in-out anim-fade" data-anim-speed="500"></ui-view>
 
         </div>
 
     </div>
 </div>
+
+<tour step="currentStep">
+    <virtual-step tourtip="Tip 1" tourtip-element="#dashboard-menu-item"></virtual-step>
+</tour>

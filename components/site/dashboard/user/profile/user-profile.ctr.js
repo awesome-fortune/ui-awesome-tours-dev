@@ -1,10 +1,11 @@
 /**
  * Created by fortune on 2016/06/01.
  */
-app.controller("UserProfileController", function ($scope, CONFIG, $http, $sessionStorage) {
+app.controller("UserProfileController", function ($scope, CONFIG, $http, $sessionStorage, NgTableParams) {
     var vm = this;
     vm.userData;
     vm.totalTickets;
+    vm.tripTableParams;
     
     (function getUserData() {
         $http.get(CONFIG.api_url + '/users/' + $sessionStorage.username)
@@ -27,7 +28,11 @@ app.controller("UserProfileController", function ($scope, CONFIG, $http, $sessio
                         total++;
                 }
                 vm.totalTickets = total;
-                console.log(total);
+                vm.tripTableParams = new NgTableParams({
+                    count: 7
+                }, {
+                    data: response
+                });
             })
             .error(function (error) {
                 console.log(error);

@@ -1,13 +1,22 @@
 /**
  * Created by fortune on 2016/06/01.
  */
-app.controller("UserDashboardController", function (ngDialog, NgTableParams, $scope, $http, CONFIG, TripsFactory, $sessionStorage, $state, $localStorage, Flash) {
+app.controller("UserDashboardController", function (ngDialog, NgTableParams, $scope, $http, CONFIG, TripsFactory, $sessionStorage, $state, $localStorage, Flash, $timeout) {
     var vm = this;
     vm.username = $sessionStorage.username;
     vm.trips;
     vm.confirmPurchase = confirmPurchase;
     vm.purchaseTicket = purchaseTicket;
     vm.hideTicketsTable = false;
+
+    vm.reloadUserDashboard = reloadUserDashboard;
+    
+    function reloadUserDashboard() {
+        $state.go('dashboard');
+        $timeout(function () {
+            $state.reload();
+        }, 600);
+    }
 
     populateTripList();
     
@@ -49,12 +58,12 @@ app.controller("UserDashboardController", function (ngDialog, NgTableParams, $sc
         $http.put(CONFIG.api_url + '/trips/' + id, trip)
             .success(function (response) {
                 successAlert("You have successfully purchased a ticket.");
+                populateTripList();
             })
             .error(function (error) {
                 console.log(error);
             });
         ngDialog.close();
-        $state.reload();
     }
 
     function populateTripList() {

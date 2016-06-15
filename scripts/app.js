@@ -6,7 +6,6 @@ var app = angular.module('awesomeTours', [
     'ngAnimate',
     'anim-in-out',
     'ng-fx',
-    //'googlechart',
     'angular-loading-bar',
     'ngStorage',
     'ngDialog',
@@ -67,6 +66,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/profile',
             templateUrl: 'components/site/dashboard/admin/profile/views/profile.tpl.html',
             controller: 'AdminProfileController as vm'
+        })
+        .state('admin-dashboard.user-list', {
+            url: '/user-list',
+            templateUrl: 'components/site/dashboard/admin/users/views/users.tpl.html',
+            controller: 'UserListController as vm'
         })
         .state('admin-dashboard.admin-logs', {
             url: '/logs',

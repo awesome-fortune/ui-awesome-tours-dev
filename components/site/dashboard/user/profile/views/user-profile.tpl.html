@@ -13,4 +13,16 @@
     <h5>Gender: {{ vm.userData.gender }}</h5>
     <h5>Account Creation Date: {{ vm.userData.created.date | limitTo:10 }}</h5>
     <h5>Tickets Bought: {{ vm.totalTickets }}</h5>
+
+    <table ng-table="vm.tripTableParams" class="table table-striped">
+        <tr ng-repeat="trip in $data">
+            <td title="'Action'" filter="{ action: 'text' }" sortable="'action'">
+                {{ trip.action }}
+            </td>
+            <td title="'Date'" filter="{ date: 'text' }" sortable="'action'">
+                {{ trip.created.date | limitTo:19 }}
+            </td>
+        </tr>
+    </table>
 </div>
+

@@ -3,13 +3,14 @@
     <div ng-if="vm.busTypes.length === 0" style="text-align: center; padding-top: 4em;">
         <h3>You have to add at-least 1 bus type in order to be able to add a bus to the list, add a bus type over <a style="text-decoration: underline" ui-sref="admin-dashboard.add-bus-type">here</a>.</h3>
     </div>
-    <div class="fx-bounce-normal well-lg alert-danger" ng-show="vm.showCheckInputError === true">
-        <i class="mdi mdi-alert mdi-36px"></i>
-        <p>Bad input, please check the information you're provided!</p>
-    </div>
     <div class="col-md-2"></div>
     <div ng-if="vm.busTypes.length > 0" class="col-md-8">
         <h4>Add a new bus</h4>
+        <flash-message
+                duration="5000"
+                show-close="true"
+                on-dismiss="myCallback(flash)"
+        ></flash-message>
         <input type="number" class="form-control" ng-model="bus.numberOfSeats" placeholder="Number of seats">
         <br>
         <input type="text" class="form-control" ng-model="bus.busRegistration" placeholder="Bus Registration">

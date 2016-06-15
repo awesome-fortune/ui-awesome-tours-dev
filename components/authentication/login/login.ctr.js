@@ -10,7 +10,7 @@ app.controller("LoginController", function ($scope, $http, CONFIG, $sessionStora
             errorAlert("Admin credentials required for the restricted area!");
             $timeout(function() {
                 delete $localStorage.adminAuthRequired;
-            }, 1200);
+            }, 600);
         }
     }
 
@@ -19,43 +19,49 @@ app.controller("LoginController", function ($scope, $http, CONFIG, $sessionStora
             errorAlert("You have to login in order to view that page!");
             $timeout(function() {
                 delete $localStorage.authRequired;
-            }, 1200);
+            }, 600);
         }
     }
 
     function login(user) {
-        $http.post(CONFIG.api_url + '/tokens', user)
-            .success(function (response) {
-                $sessionStorage.token = response.token;
-                $sessionStorage.username = user.username;
+        if (typeof user === 'undefined' ||
+            typeof user.username === 'undefined' ||
+            typeof user.password === 'undefined') {
+            errorAlert("Please provide your credentials");
+        } else {
+            $http.post(CONFIG.api_url + '/tokens', user)
+                .success(function (response) {
+                    $sessionStorage.token = response.token;
+                    $sessionStorage.username = user.username;
 
-                successAlert(response.message);
+                    successAlert(response.message);
 
-                $timeout(function() {
-                    if (response.message.contains('awesome_admin')) {
-                        $state.go('admin-dashboard');
-                    } else {
-                        $state.go('dashboard');
+                    $timeout(function() {
+                        if (response.message.contains('awesome_admin')) {
+                            $state.go('admin-dashboard');
+                        } else {
+                            $state.go('dashboard');
+                        }
+                    }, 600);
+                })
+                .error(function (error, status) {
+                    switch (status) {
+                        case 401:
+                            errorAlert("Bad Credentials");
+                            delete $sessionStorage.username;
+                            delete $sessionStorage.token;
+                            break;
+                        case 404:
+                            var message = 'Sorry, we could not find any account matching that username, please sign up if you ' +
+                                'don\'t have an account.';
+                            errorAlert(message);
+                            delete $sessionStorage.username;
+                            delete $sessionStorage.token;
+                            break;
                     }
-                }, 3000);
-            })
-            .error(function (error, status) {
-                switch (status) {
-                    case 401:
-                        errorAlert("Bad Credentials");
-                        delete $sessionStorage.username;
-                        delete $sessionStorage.token;
-                        break;
-                    case 404:
-                        var message = 'Sorry, we could not find any account matching that username, please sign up if you ' +
-                            'don\'t have an account.';
-                        errorAlert(message);
-                        delete $sessionStorage.username;
-                        delete $sessionStorage.token;
-                        break;
-                }
 
-            });
+                });
+        }
     }
 
     function successAlert(message) {

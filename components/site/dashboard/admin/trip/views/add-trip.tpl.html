@@ -3,6 +3,11 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <h4>Add a new trip</h4>
+        <flash-message
+                duration="5000"
+                show-close="true"
+                on-dismiss="myCallback(flash)"
+        ></flash-message>
         <input type="text" class="form-control" ng-model="trip.tripName" placeholder="Trip Name, e.g Pretoria to JHB 7am">
         <br><br>
         <select ng-model="trip.route" class="form-control">

@@ -21,7 +21,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a ui-sref="dashboard"><i class="mdi mdi-home"></i> Home</a></li>
+                <li><a ng-click="vm.reloadUserDashboard()" style="cursor: pointer"><i class="mdi mdi-home"></i> Home</a></li>
                 <li><a ui-sref="dashboard.user-profile"><i class="mdi mdi-account"></i> Profile</a></li>
                 <li><a style="cursor: pointer" ng-click="vm.logout()"><i class="mdi mdi-exit-to-app"></i> Logout</a></li>
             </ul>
@@ -33,7 +33,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" id="dashboard-sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a ui-sref="dashboard">Logged in as {{ vm.username }}<span class="sr-only">(current)</span></a>
+                <li class="active"><a ng-click="vm.reloadUserDashboard()" style="cursor: pointer">Logged in as {{ vm.username }}<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>

@@ -2,7 +2,7 @@
  * Created by fortune on 2016/04/30.
  */
 // TODO: Remove improv admin firewall
-app.controller("AdminDashboardController", function ($http, CONFIG, $scope, $state, BusFactory, $timeout, BusRoutesFactory, TripsFactory, $sessionStorage, $localStorage) {
+app.controller("AdminDashboardController", function ($http, CONFIG, $scope, $state, BusFactory, $timeout, BusRoutesFactory, TripsFactory, $sessionStorage, $localStorage, UserFactory) {
    var vm = this;
     vm.username = $sessionStorage.username;
     //the best improv admin firewall ever... (0_0)
@@ -18,6 +18,7 @@ app.controller("AdminDashboardController", function ($http, CONFIG, $scope, $sta
     var buses;
     var busRoutes;
     var trips;
+    var users;
 
     vm.logout = logout;
     function logout() {
@@ -33,9 +34,18 @@ app.controller("AdminDashboardController", function ($http, CONFIG, $scope, $sta
             });
     }
     
+    vm.reloadAdminDashboard = reloadAdminDashboard;
+    function reloadAdminDashboard() {
+        $state.go('admin-dashboard');
+        $timeout(function () {
+            $state.reload();
+        }, 600);
+    }
     vm.totalBuses;
     vm.totalBusRoutes;
     vm.totalTrips;
+    vm.totalUsers;
+    vm.ticketsSold;
     
     vm.showBusAddedNotification = false;
     vm.showBusDeletedNotification = false;
@@ -55,9 +65,23 @@ app.controller("AdminDashboardController", function ($http, CONFIG, $scope, $sta
 
     vm.showBusRegistrationExistsNotification = false;
     vm.showBusTypeExistsNotification = false;
+    vm.showUserDeletedNotification = false;
 
     vm.showAdminStats = true;
-    
+
+    (function getTripTableLogs() {
+        var user = {
+            username: $sessionStorage.username
+        };
+        $http.post(CONFIG.api_url + '/trip-logs', user)
+            .success(function (response) {
+                vm.ticketsSold = response.length;
+            })
+            .error(function (error) {
+                console.log(error);
+            });
+    })();
+
     BusFactory.getBuses().then(function (bus) {
        buses = bus.data;
        vm.totalBuses = buses.length;
@@ -71,6 +95,11 @@ app.controller("AdminDashboardController", function ($http, CONFIG, $scope, $sta
     TripsFactory.getTrips().then(function (trip) {
         trips = trip.data;
         vm.totalTrips = trips.length;
+    });
+    
+    UserFactory.getUsers().then(function (user) {
+        users = user.data;
+        vm.totalUsers = users.length;
     });
 
     $scope.$on('busAdded', function (event, busAdded) {
@@ -140,6 +169,16 @@ app.controller("AdminDashboardController", function ($http, CONFIG, $scope, $sta
 
     });
 
+    $scope.$on('userDeleted', function (event, userDeleted) {
+        vm.totalUsers--;
+        vm.showUserDeletedNotification = true;
+
+        $timeout(function() {
+            vm.showUserDeletedNotification = false;
+            $scope.$broadcast('updateUserList', true);
+        }, 1200);
+    });
+    
     $scope.$on('busRouteDeleted', function (event, busRouteDeleted) {
         vm.totalBusRoutes--;
         vm.showBusRouteDeletedNotification = true;
@@ -208,6 +247,10 @@ app.controller("AdminDashboardController", function ($http, CONFIG, $scope, $sta
 
     $scope.$on('hideTicketsTable', function (event, message) {
         vm.hideTicketsTable = false;
+    });
+
+    $scope.$on('hideAdminStats', function (event, message) {
+        vm.showAdminStats = false;
     });
     
 });
